@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate QR Code</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        form { margin-bottom: 20px; }
+        input { margin: 10px; padding: 8px; width: 300px; }
+        #qrcode { margin: 20px auto; }
+    </style>
+</head>
+<body>
+    <h1>Masukkan Data Anda</h1>
+    <form id="userForm">
+        <input type="text" id="nama" placeholder="Nama" required><br>
+        <input type="text" id="alamat" placeholder="Alamat" required><br>
+        <button type="button" onclick="generateQR()">Generate QR</button>
+    </form>
+    <div id="qrcode"></div>
+
+    <script>
+        function generateQR() {
+            const nama = document.getElementById('nama').value;
+            const alamat = document.getElementById('alamat').value;
+            if (!nama || !alamat) {
+                alert('Isi nama dan alamat terlebih dahulu!');
+                return;
+            }
+            const data = JSON.stringify({ nama, alamat });
+            new QRCode(document.getElementById('qrcode'), {
+                text: data,
+                width: 256,
+                height: 256,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+    </script>
+</body>
+</html>
